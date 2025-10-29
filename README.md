@@ -1,4 +1,4 @@
-# ⚡ Lab (Partial): Pokémon Battle 🧩
+# ⚡ Parcial No. 2: Pokémon Battle 🧩
 
 <img width="1200" height="500" alt="image" src="https://github.com/user-attachments/assets/8f623c8e-2de7-4b80-a56c-45306d9e0c9f" />
 
