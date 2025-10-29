@@ -18,7 +18,7 @@ You will build:
 
 * GET [https://pokeapi.co/api/v2/pokemon?limit={number}](https://pokeapi.co/api/v2/pokemon?limit={number})
 * GET [https://pokeapi.co/api/v2/pokemon/{name-or-id}](https://pokeapi.co/api/v2/pokemon/{name-or-id})
-* GET [https://pokeapi.co/api/v2/move/{name-or-id}](https://pokeapi.co/api/v2/move/{name-or-id})
+* GET [https://pokeapi.co/api/v2/pokemon-form/{name-or-id}](https://pokeapi.co/api/v2/pokemon-form/{name-or-id})
 
 ---
 
@@ -42,16 +42,29 @@ All of your endpoints must call PokéAPI via your layers. Suggested set:
   { "id":25, "name":"pikachu", "stats":[{"name":"hp","base":35}, ...] }
   ```
 
+* 🌀 **GET /api/v1/pokemon/<name_or_id>/forms** → Pokémon forms and types
+  🧠 Calls the PokéAPI `pokemon-form` endpoint and returns the available forms and types for that Pokémon.
+  **Response Example (simplified):**
+
+  ```json
+  {
+    "id": 6,
+    "name": "charizard",
+    "types": ["fire", "flying"],
+    "is_mega": false
+  }
+  ```
+
 * ⚡ **POST /api/v1/battle/start** → Simple battle simulation (server-side)
   **Body:**
 
   ```
-  { "selected-pokemon": "pikachu" }
+  { "pokemon": "pikachu" }
   ```
 
-  * `selected-pokemon` (required): name or id of the challenger.
+  * `pokemon` (required): name or id of the selected pokemon.
 
-  🧠 The Service fetches the challenger from PokéAPI, selects a random opponent, and chooses a winner randomly.
+  🧠 The Service fetches the challenger from PokéAPI, selects a random pokemon opponent, and chooses a winner randomly.
   **Response Example:**
 
   ```
@@ -85,7 +98,7 @@ All of your endpoints must call PokéAPI via your layers. Suggested set:
    * Client sends **POST** `/api/v1/battle/start` with body:
 
      ```json
-     { "selected-pokemon": "<name-or-id>" }
+     { "pokemon": "<name-or-id>" }
      ```
    * Server:
 
@@ -94,7 +107,12 @@ All of your endpoints must call PokéAPI via your layers. Suggested set:
      * Randomly selects a winner (no turn-by-turn combat).
    * Response contains challenger, opponent, and the winner.
 
-3. 📊 **Get Stats for Pokémon**
+3. 🌀 **Show Pokémon Forms**
+
+   * Call GET `/api/v1/pokemon/<name_or_id>/forms`
+   * Returns form and type information for that Pokémon (e.g., Charizard has fire and flying forms).
+
+4. 📊 **Get Stats for Pokémon** (Optional)
 
    * Call GET `/api/v1/pokemon/<name_or_id>/stats`
    * Returns reduced stats (hp/attack/defense) and basic info.
@@ -119,6 +137,5 @@ All of your endpoints must call PokéAPI via your layers. Suggested set:
 * 🧩 Flask app with required endpoints
 * 📘 README with setup/run instructions and endpoint docs
 * 🧱 Clear separation of Controllers / Services / Repositories
-* ⚔️ Simple battle simulation via POST `/api/v1/battle/start` that returns a random winner
 
 ---
